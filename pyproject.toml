@@ -8,6 +8,7 @@ dependencies = []
 [dependency-groups]
 dev = [
     "pytest>=8,<9",
+    "pytest-cov>=7.1.0",
     "ruff>=0.6,<0.10",
 ]
 
@@ -24,3 +25,14 @@ testpaths = ["tests"]
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+
+[tool.coverage.run]
+source = ["app"]
+branch = true
+
+[tool.coverage.report]
+# Mesure obtenue : 90 % (lignes + branches) ; 75 % avant les tests paramétrés.
+# 85 laisse 5 points de marge au client HTTP réel (non testable sans réseau)
+# et fait échouer la CI dès qu'on retire les tests de normalize.py.
+fail_under = 85
+show_missing = true
